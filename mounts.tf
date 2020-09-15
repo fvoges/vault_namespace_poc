@@ -30,7 +30,7 @@ resource "vault_auth_backend" "approle" {
 
 resource "vault_approle_auth_backend_role" "example" {
   count                   = (var.use_approle ? 1 : 0)
-  backend                 = vault_auth_backend.approle.path
+  backend                 = vault_auth_backend.approle[count.index].path
   role_name               = var.my_role_name
   token_policies          = var.token_policies
   secret_id_bound_cidrs   = var.secret_id_bound_cidrs
