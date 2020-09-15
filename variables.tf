@@ -17,19 +17,23 @@ variable "namespace_name" {
 of he module are used */
 variable "use_userpass" {
   description = "a variable set to true or false to determine if a userpass auth method should be created"
+  type        = bool
   default = false
 }
 variable "use_kv" {
   description = "a variable set to true or false to determine if a kv secrets method should be created"
+  type        = bool
   default = false
 }
 variable "use_policy" {
   description = "a variable set to true or false to determine if policies should be created"
+  type        = bool
   default = false
 }
 variable "use_ldap" {
   description = "a variable set to true or false to determine if ldap groups should be created"
-  default = false
+  type        = bool
+  default     = false
 }
 variable "use_approle" {
   description = "a variable set to true or false to determine if a approle auth method should be created"
@@ -70,13 +74,13 @@ variable "policies" {
 variable "int_groups" {
   description = "The name the LDAP groups to be added to int groups"
   type = map
-  default = {"" = ""}
+  default = { }
 }
 
 variable "policy_map" {
   description = "a mapping of the policy to internal groups"
   type = map
-  default = {"" = ""}
+  default = { }
 }
 /* Approle Variables */
 variable "my_role_name" {
@@ -87,25 +91,25 @@ variable "my_role_name" {
 variable "token_policies" {
   description = "Policies related to this approle"
   type = list
-  default = [""]
+  default = []
 }
 variable "secret_id_bound_cidrs" {
   description = "List of cidr blocks that the SID can be used from"
   type = list
-  default = [""]
+  default = []
 }
 variable "token_bound_cidrs" {
   description = "List of cidr blocks that the token can be used from"
   type = list
-  default = [""]
+  default = []
 }
 variable "token_ttl" {
   description = "default TTL of token"
-  type = list
-  default = [""]
+  type = number
+  default = 0
 }
 variable "token_max_ttl" {
   description = "default max TTL of token"
-  type = list
-  default = [""]
+  type = number
+  default = 0
 }
