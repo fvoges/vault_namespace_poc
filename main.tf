@@ -13,32 +13,26 @@ resource "vault_namespace" "my_namespace" {
 
 /* New namespace provider */
 provider "vault" {
-  address = var.vault_addr
-  alias = "my_namespace"
+  address   = var.vault_addr
+  alias     = "my_namespace"
   namespace = var.namespace_name
-  token = var.token
+  token     = var.token
 }
 
-/*Policy Creation */
-
+/* Policy Creation */
 resource "vault_policy" "ns_policies" {
-  provider    = vault.my_namespace
+  provider = vault.my_namespace
   for_each = var.policies
-  name   = each.key
-  policy = each.value
+  name     = each.key
+  policy   = each.value
 }
 
 /* Namespace internal groups linked to LDAP */
 resource "vault_identity_group" "internal" {
-  provider    = vault.my_namespace
-  for_each = var.int_groups
-  name = each.key
-  member_group_ids = [ each.value ]
-  type     = "internal"
-}
-resource "vault_identity_group_policies" "pols" {
-  for_each = var.policy_map
-  policies = [ each.key ]
-  group_id = each.value
-  exclusive = true
+  provider         = vault.my_namespace
+  for_each         = var.int_groups
+  name             = each.key
+  member_group_ids = [ each.value.group_id ]
+  policies         = each.value.policies
+  type             = "internal"
 }
