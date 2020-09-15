@@ -3,18 +3,23 @@
 This repo contains a very simple module for creating namespaces in Vault.
 
 ## Versions
+
 This module was written using these versions:
--  terraform v0.12.24
--  vault provider v2.10.0
+
+- terraform v0.12.24
+- vault provider v2.10.0
+
 ## Usage
 
 A new namespace can be instantiated by calling the module. If you have more than one namespace inside a sate  file then simply call the module as many times as needed.
 
 Currently there are only 2 mounts in the module:
+
 - kv v1 secrets engine
 - userpass auth mount
 
 To determine what mounts you want in a namespace, simply set the required variables to true of false:
+
 - use_userpass
 - use_kv
 
@@ -43,19 +48,22 @@ module "avengers_namespace" {
   ext_group_id = vault_identity_group.avengers_group.id
 }
 ```
+
 ## Variables
 
 ### Required
+
 - vault_addr      = The address of the vault server api port
 - token           = The vault token to use
 - namespace_name  = The name for the new namespace
 
 ### Optional (with defaults)
-- use_userpass    = (false) boolean to determine if a userpass auth mount is created
-- use_kv          = (false) boolean to determine if a kv secrets engine is created
-- use_ldap        = (false) boolean to determine if internal groups should be created
-- use policy      = (false) boolean to add policies to the namespace and assign them to the internal group. This cannot be true if use_ldap is false
-- policies        = This is a map of policy_name and the rendered policy template (or flat policy if you really want)
-- up_path         = (userpass) path to mount auth engine
-- up_lease_ttl    = (600m) Default lease time for auth mount
-- kv_path         = (kv) path to mount my_secrets engine
+
+- `use_userpass`    = (false) boolean to determine if a userpass auth mount is created
+- `use_kv`          = (false) boolean to determine if a kv secrets engine is created
+- `use_ldap`        = (false) boolean to determine if internal groups should be created
+- `use policy`      = (false) boolean to add policies to the namespace and assign them to the internal group. This cannot be true if use_ldap is false
+- `policies`        = This is a map of policy_name and the rendered policy template (or flat policy if you really want)
+- `up_path`         = (userpass) path to mount auth engine
+- `up_lease_ttl`    = (600m) Default lease time for auth mount
+- `kv_path`         = (kv) path to mount my_secrets engine
